@@ -154,9 +154,9 @@ jobs:
           cache-from: type=gha,scope=tagged${{ matrix.os }}
           cache-to: type=gha,scope=tagged${{ matrix.os }},mode=max
 
-      - name: Build and Push (main)
+      - name: Build and Push (${{ github.env.default_branch }})
         uses: docker/build-push-action@v6
-        if: "github.event_name == 'push' && contains(github.ref, 'main')"
+        if: "github.event_name == 'push' && contains(github.ref, github.env.default_branch)"
         with:
           context: .
           file: ./Dockerfile
